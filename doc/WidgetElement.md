@@ -4,6 +4,8 @@
 
 整体实现思路参考了 [CustomElement.md](./CustomElement.md) 中「自定义一个元素」的流程，交互形态参考 <https://ppt.klps.top/> 的组件中心与放映交互。
 
+> 想看逐文件、逐函数的源码级实现说明，请阅读 [WidgetImplementation.md](./WidgetImplementation.md)。
+
 ## 功能
 
 - 顶部插入工具栏新增「组件」入口，打开组件中心。
