@@ -1,0 +1,7 @@
+services:
+  pptist:
+    build: .
+    container_name: pptist
+    ports:
+      - "8080:80"
+    restart: unless-stopped
