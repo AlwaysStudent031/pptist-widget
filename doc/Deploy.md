@@ -2,6 +2,10 @@
 
 本项目是纯前端应用，`npm run build` 产物在 `dist/` 目录，可以部署到任意静态托管或自己的服务器。`vite.config.ts` 中 `base: ''`，资源使用相对路径，因此部署在域名根目录或子路径（如 GitHub Pages 的 `/<repo>/`）都可以。
 
+> 当前已部署到 GitHub Pages：<https://alwaysstudent031.github.io/pptist-widget/>
+>
+> 仓库：<https://github.com/AlwaysStudent031/pptist-widget>
+
 ## 方式对比
 
 | 方式 | 入口 | 是否持久 | 适合 |
@@ -133,20 +137,24 @@ location /api/ {
 
 ## 四、GitHub Pages（免费永久入口）
 
-仓库已有 `.github/workflows/deploy.yml`：推送到 `master` 后自动构建并发布到 `gh-pages` 分支。
+仓库包含 `.github/workflows/deploy.yml`：推送到 `master` 后自动构建，并通过 GitHub 官方 Pages Actions 发布（不再需要 `gh-pages` 分支）。
 
-1. 把仓库推送到 GitHub。
-2. 仓库 **Settings → Pages → Build and deployment → Source** 选择 **Deploy from a branch**，分支选 `gh-pages`、目录选 `/ (root)`。
-3. 等待 Actions 完成，入口为：
+1. 首次部署时，仓库管理员打开 **Settings → Pages → Build and deployment → Source**，选择 **GitHub Actions**。这一步 GitHub 要求手动初始化一次。
+2. 推送 `master`，等待 **Actions → deploy** 完成。
+3. 入口为：
 
 ```
 https://<你的用户名>.github.io/<仓库名>/
 ```
 
+当前项目的实际入口：<https://alwaysstudent031.github.io/pptist-widget/>
+
+> GitHub Pages 没有 `/api` 反向代理，模板库/AI 功能可能不可用；编辑器、放映、可视化组件功能不受影响。需要这些接口时请使用 Docker + Nginx 方案。
+
 注意：
 
 - 如果仓库名不是 `<用户名>.github.io`，站点在子路径下；`base: ''` 已适配。
-- Pages 没有 `/api` 反向代理，模板库/AI 功能可能不可用；核心编辑/放映/组件功能正常。
+- 免费 Pages 对单文件/仓库体积有限制；当前 GitHub `master` 是一个单提交快照，保留完整文件，便于直接部署。
 
 ## 五、Vercel / Netlify / Cloudflare Pages
 
