@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="120" viewBox="0 0 250 120">
+  <rect width="250" height="120" fill="#f6f9fd"/>
+  <g stroke="#8ba1b8" stroke-width="1.6">
+    <path d="M125 28L75 58M125 28L175 58M75 58L40 96M75 58L110 96M175 58L145 96M175 58L210 96"/>
+  </g>
+  <g fill="#dfeaf5" stroke="#8ba1b8">
+    <circle cx="125" cy="28" r="13"/>
+    <circle cx="75" cy="58" r="12"/>
+    <circle cx="175" cy="58" r="12"/>
+    <circle cx="40" cy="96" r="10"/>
+    <circle cx="110" cy="96" r="10"/>
+    <circle cx="145" cy="96" r="10"/>
+    <circle cx="210" cy="96" r="10"/>
+  </g>
+  <g fill="#fff" stroke-width="2">
+    <circle cx="125" cy="28" r="13" stroke="#338bc8"/>
+    <circle cx="75" cy="58" r="12" stroke="#f0b755"/>
+    <circle cx="175" cy="58" r="12" stroke="#8667d5"/>
+    <circle cx="40" cy="96" r="10" stroke="#12a073"/>
+    <circle cx="110" cy="96" r="10" stroke="#12a073"/>
+    <circle cx="145" cy="96" r="10" stroke="#12a073"/>
+    <circle cx="210" cy="96" r="10" stroke="#12a073"/>
+  </g>
+  <path d="M75 58L110 96M175 58L145 96" stroke="#12a073" stroke-width="3.2"/>
+  <text x="26" y="116" font-family="Arial" font-size="9" fill="#8397ad">树形 DP · 最大权匹配</text>
+</svg>

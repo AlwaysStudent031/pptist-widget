@@ -2,7 +2,7 @@ import { storeToRefs } from 'pinia'
 import { nanoid } from 'nanoid'
 import { useMainStore, useSlidesStore } from '@/store'
 import { getImageSize } from '@/utils/image'
-import type { PPTLineElement, PPTElement, TableCell, TableCellStyle, PPTShapeElement, ChartType, PPTVideoElement, PPTAudioElement, WidgetType } from '@/types/slides'
+import type { PPTLineElement, PPTElement, TableCell, TableCellStyle, PPTShapeElement, ChartType, PPTVideoElement, PPTAudioElement, WidgetType, CustomModule } from '@/types/slides'
 import { type ShapePoolItem, SHAPE_PATH_FORMULAS } from '@/configs/shapes'
 import type { LinePoolItem } from '@/configs/lines'
 import { CHART_DEFAULT_DATA } from '@/configs/chart'
@@ -340,6 +340,33 @@ export default () => {
     })
   }
 
+  /**
+   * 创建自定义模块元素
+   * @param module 自定义模块库条目
+   */
+  const createCustomWidgetElement = (module: CustomModule) => {
+    const width = 900
+    const height = 506
+
+    createElement({
+      type: 'widget',
+      id: nanoid(10),
+      widgetType: 'custom',
+      data: {
+        moduleId: module.id,
+        name: module.name,
+        document: module.document,
+      },
+      left: (viewportSize.value - width) / 2,
+      top: (viewportSize.value * viewportRatio.value - height) / 2,
+      width,
+      height,
+      rotate: 0,
+      color: theme.value.fontColor,
+      fill: '#ffffff',
+    })
+  }
+
   return {
     createImageElement,
     createChartElement,
@@ -351,5 +378,6 @@ export default () => {
     createVideoElement,
     createAudioElement,
     createWidgetElement,
+    createCustomWidgetElement,
   }
 }

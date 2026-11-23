@@ -176,22 +176,38 @@
     >
       <WidgetCenter
         @select="type => { createWidgetElement(type); widgetCenterVisible = false }"
+        @select-custom="module => { createCustomWidgetElement(module); widgetCenterVisible = false }"
+        @create-custom="openCustomEditor()"
+        @edit-custom="module => openCustomEditor(module)"
+      />
+    </Modal>
+
+    <Modal
+      v-model:visible="customEditorVisible"
+      :width="1120"
+      closeButton
+    >
+      <CustomModuleEditor
+        :module="editingCustomModule"
+        @save="handleCustomSave"
+        @cancel="handleCustomCancel"
       />
     </Modal>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore, useSnapshotStore } from '@/store'
 import { getImageDataURL } from '@/utils/image'
 import type { ShapePoolItem } from '@/configs/shapes'
 import type { LinePoolItem } from '@/configs/lines'
-import type { PPTShapeElement } from '@/types/slides'
+import type { PPTShapeElement, CustomModule } from '@/types/slides'
 import useScaleCanvas from '@/hooks/useScaleCanvas'
 import useHistorySnapshot from '@/hooks/useHistorySnapshot'
 import useCreateElement from '@/hooks/useCreateElement'
+import useCustomModules from '@/hooks/useCustomModules'
 
 import ShapePool from './ShapePool.vue'
 import LinePool from './LinePool.vue'
@@ -200,6 +216,7 @@ import TableGenerator from './TableGenerator.vue'
 import MediaInput from './MediaInput.vue'
 import SVGPathEditor from './SVGPathEditor.vue'
 import WidgetCenter from './WidgetCenter.vue'
+import CustomModuleEditor from './CustomModuleEditor.vue'
 import LaTeXEditor from '@/components/LaTeXEditor/index.vue'
 import FileInput from '@/components/FileInput.vue'
 import Modal from '@/components/Modal.vue'
@@ -239,7 +256,10 @@ const {
   createAudioElement,
   createShapeElement,
   createWidgetElement,
+  createCustomWidgetElement,
 } = useCreateElement()
+
+const { saveModule } = useCustomModules()
 
 const insertImageElement = (files: FileList) => {
   const imageFile = files[0]
@@ -255,10 +275,41 @@ const mediaInputVisible = ref(false)
 const latexEditorVisible = ref(false)
 const svgPathEditorVisible = ref(false)
 const widgetCenterVisible = ref(false)
+const customEditorVisible = ref(false)
+const editingCustomModule = ref<CustomModule | null>(null)
 const textTypeSelectVisible = ref(false)
 const shapeMenuVisible = ref(false)
 const imageMenuVisible = ref(false)
 const moreVisible = ref(false)
+
+// 打开自定义模块编辑器；module 为空表示新建
+const openCustomEditor = (module: CustomModule | null = null) => {
+  editingCustomModule.value = module
+  widgetCenterVisible.value = false
+  customEditorVisible.value = true
+}
+
+const handleCustomSave = (module: CustomModule) => {
+  saveModule(module)
+  createCustomWidgetElement(module)
+  customEditorVisible.value = false
+  editingCustomModule.value = null
+}
+
+const handleCustomCancel = () => {
+  customEditorVisible.value = false
+  editingCustomModule.value = null
+  widgetCenterVisible.value = true
+}
+
+// 自定义模块是 iframe，弹窗打开时先隐藏，避免 iframe 图层盖住弹窗
+watch([widgetCenterVisible, customEditorVisible], ([centerVisible, editorVisible]) => {
+  document.body.classList.toggle('pptist-modal-open', centerVisible || editorVisible)
+})
+
+onUnmounted(() => {
+  document.body.classList.remove('pptist-modal-open')
+})
 
 // 绘制文字范围
 const drawText = (vertical = false) => {

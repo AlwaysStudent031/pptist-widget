@@ -676,7 +676,7 @@ export interface PPTAudioElement extends PPTBaseElement {
  *
  * function: 函数图像（二维曲线/三维曲面）
  */
-export type WidgetType = 'timer' | 'rollCall' | 'function'
+export type WidgetType = 'timer' | 'rollCall' | 'function' | 'custom'
 
 export interface WidgetVarRange {
   min: number
@@ -719,7 +719,36 @@ export interface FunctionWidgetData {
   varRanges: Record<'x' | 'y' | 'z', WidgetVarRange>
 }
 
-export type WidgetData = TimerWidgetData | RollCallWidgetData | FunctionWidgetData
+/**
+ * 自定义模块数据
+ *
+ * moduleId: 模块库中的 ID（便于编辑，可为空）
+ *
+ * name: 模块名称
+ *
+ * document: 完整 HTML 文档（HTML + CSS + JS），运行时放入沙箱 iframe
+ */
+export interface CustomWidgetData {
+  moduleId?: string
+  name: string
+  document: string
+}
+
+/**
+ * 自定义模块库条目
+ *
+ * builtin: 内置示例（CFG 的三个可视化），不可编辑/删除
+ */
+export interface CustomModule {
+  id: string
+  name: string
+  description?: string
+  document: string
+  preview?: string
+  builtin?: boolean
+}
+
+export type WidgetData = TimerWidgetData | RollCallWidgetData | FunctionWidgetData | CustomWidgetData
 
 /**
  * 可视化组件元素

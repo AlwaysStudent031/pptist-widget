@@ -34,7 +34,7 @@
           :height="elementInfo.height"
           :color="elementInfo.color"
           :fill="elementInfo.fill"
-          :interactive="true"
+          :interactive="elementInfo.widgetType !== 'custom'"
           @interact="handleInteract"
         />
 

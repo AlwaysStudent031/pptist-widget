@@ -3,6 +3,7 @@ import type { WidgetData, WidgetType } from '@/types/slides'
 
 import TimerWidget from '@/views/components/element/WidgetElement/widgets/TimerWidget.vue'
 import RollCallWidget from '@/views/components/element/WidgetElement/widgets/RollCallWidget.vue'
+import CustomWidget from '@/views/components/element/WidgetElement/widgets/CustomWidget.vue'
 
 // 函数组件依赖 mathjs / echarts-gl，体积较大，按需加载
 const FunctionWidget = defineAsyncComponent(() => {
@@ -69,6 +70,21 @@ export const WIDGET_LIST: WidgetDefinition[] = [
   },
 ]
 
+/**
+ * 自定义模块的通用定义。
+ * 它不出现在“预设组件”中，只用于编辑画布/放映/缩略图查找渲染组件。
+ */
+export const CUSTOM_WIDGET_DEFINITION: WidgetDefinition = {
+  type: 'custom',
+  name: '自定义模块',
+  description: '用户自己编写的 HTML 模块',
+  component: CustomWidget,
+  defaultData: () => ({ name: '', document: '' }),
+  defaultSize: () => ({ width: 900, height: 506 }),
+  preview: '',
+}
+
 export const getWidgetDefinition = (type: WidgetType | string) => {
+  if (type === 'custom') return CUSTOM_WIDGET_DEFINITION
   return WIDGET_LIST.find(item => item.type === type)
 }

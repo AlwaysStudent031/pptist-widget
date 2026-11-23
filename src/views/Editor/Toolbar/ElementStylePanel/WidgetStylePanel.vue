@@ -78,6 +78,16 @@
       </div>
     </template>
 
+    <template v-else-if="widgetType === 'custom'">
+      <div class="row">
+        <div style="width: 40%;">模块：</div>
+        <div class="custom-module-name">{{ customData.name || '自定义模块' }}</div>
+      </div>
+      <div class="expr-tip">
+        在「组件中心 → 自定义组件」中编辑模块代码；当前元素保存的是插入时的代码快照。
+      </div>
+    </template>
+
     <Divider />
 
     <div class="row">
@@ -113,6 +123,7 @@ import type { Ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore, useSlidesStore } from '@/store'
 import type {
+  CustomWidgetData,
   FunctionWidgetData,
   PPTElement,
   PPTWidgetElement,
@@ -160,6 +171,10 @@ const functionData = computed<FunctionWidgetData>(() => {
       z: { min: -10, max: 10 },
     },
   }) as FunctionWidgetData
+})
+
+const customData = computed<CustomWidgetData>(() => {
+  return (handleWidgetElement.value?.data || { name: '', document: '' }) as CustomWidgetData
 })
 
 const updateWidget = (props: Partial<PPTWidgetElement>) => {
@@ -263,5 +278,13 @@ const updateVarRange = (name: 'x' | 'y' | 'z', key: 'min' | 'max', value: number
   font-size: 11px;
   line-height: 1.5;
   color: #999;
+}
+.custom-module-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="120" viewBox="0 0 250 120">
+  <rect width="250" height="120" fill="#f6f9fd"/>
+  <g stroke="#dbe5ef" stroke-width="1">
+    <path d="M25 100h200M45 10v100"/>
+    <path d="M95 10v100M145 10v100M195 10v100" opacity=".45"/>
+    <path d="M25 50h200M25 75h200" opacity=".45"/>
+  </g>
+  <path d="M65 35L135 88L205 45" fill="none" stroke="#0788b5" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M65 85L205 45" fill="none" stroke="#e49b21" stroke-width="1.6" stroke-dasharray="6 5"/>
+  <path d="M65 35v50" fill="none" stroke="#8a72e8" stroke-width="1" stroke-dasharray="4 4"/>
+  <circle cx="65" cy="35" r="4.5" fill="#62d5e8" stroke="#0b7f9b"/>
+  <circle cx="205" cy="45" r="4.5" fill="#62e8ac" stroke="#12845b"/>
+  <circle cx="135" cy="88" r="5" fill="#a58dff" stroke="#7554c9"/>
+  <text x="52" y="27" font-family="Arial" font-size="11" fill="#0b6f91">A</text>
+  <text x="211" y="37" font-family="Arial" font-size="11" fill="#12845b">B</text>
+  <text x="140" y="105" font-family="Arial" font-size="11" fill="#7554c9">P</text>
+  <text x="30" y="116" font-family="Arial" font-size="9" fill="#8397ad">平面反射 · 最短路径</text>
+</svg>

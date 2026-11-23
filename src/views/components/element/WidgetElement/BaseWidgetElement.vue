@@ -28,6 +28,7 @@
           :color="elementInfo.color"
           :fill="elementInfo.fill"
           :interactive="interactive"
+          :target="target"
         />
       </div>
     </div>
