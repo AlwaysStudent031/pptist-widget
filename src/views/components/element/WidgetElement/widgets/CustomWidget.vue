@@ -54,9 +54,6 @@ withDefaults(defineProps<{
   border: 0;
   background: #fff;
 }
-:global(body.pptist-modal-open) .custom-frame {
-  visibility: hidden;
-}
 .custom-placeholder,
 .custom-thumbnail {
   width: 100%;
@@ -88,5 +85,12 @@ withDefaults(defineProps<{
 }
 .custom-thumbnail .thumb-icon {
   font-size: 30px;
+}
+</style>
+
+<style lang="scss">
+/* 弹窗打开时隐藏画布中的自定义 iframe，避免 iframe 图层盖住弹窗 */
+body.pptist-modal-open .custom-frame {
+  visibility: hidden;
 }
 </style>
